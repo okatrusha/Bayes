@@ -1,3 +1,5 @@
+netwrok = "Asia"
+
 topology = [('VisitAsia', 'Tuberculosis'), 
                    ('Tuberculosis', 'Tb_or_Ca'),
                    ('Animal', 'Class'),
