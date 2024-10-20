@@ -36,10 +36,6 @@ for r in roots:
 #     for s in parsed_nodes[pn]:
 #         print("Node: {}, State: {}, probability: {}".format(pn, s, parsed_nodes[pn][s]))
 # print("<<<<<<<<<<<<<<< Nodes probabilities")
-def print_list_to_file(my_list, file_path='output.txt'):
-    with open(file_path, 'w') as file:  # 'w' mode to overwrite the file
-        for item in my_list:
-            file.write(f"{item}\n")
 
 print("Nodes probabilities >>>>>>>>>>>>>>>")
 for pn in nodes_prob:
@@ -47,7 +43,12 @@ for pn in nodes_prob:
         print("Node: {}, State: {}, probability: {}".format(pn, s, nodes_prob[pn][s]))
 print("<<<<<<<<<<<<<<< Nodes probabilities")
 print("")
-print_list_to_file(nodes_prob, "nodes_probabilities.txt")
+
+with open("L1/mine/animal_nodes_probability.txt", 'w') as file:  # 'w' mode to overwrite the file
+    for pn in nodes_prob:
+        for s in nodes_prob[pn]:
+            file.write("Node: {}, State: {}, probability: {}".format(pn, s, nodes_prob[pn][s]) + "\n")
+            
 
 # Generate combinations of states per node
 nodes = nodes_prob.keys()
@@ -71,26 +72,29 @@ print("Full probabilities >>>>>>>>>>>>>>>")
 
 probsum = 0
 prob_comblist = []
-for combination in all_states:
-    probability = 1        
-    prob_comb =[]
-    for node in combination:
-        if node in roots:
-            probability *= data[node][combination[node]]
-            prob_comb.append(node + " " + combination[node] + " : " + str(data[node][combination[node]]))        
-        else:
-            for parent in find_parents(node):
-                probability *= data[node][combination[node]][parent + '.' + combination[parent]]
-                prob_comb.append(node + " " + combination[node] + " "+ parent + '.' + combination[parent] +
-                                 " : " + str(data[node][combination[node]][parent + '.' + combination[parent]]))
-    #if (probability != 0):
-    probsum += probability
-    print(str(combination) + " Probability: " + str(probability))
+with open("L1/mine/animal_full_probability.txt", 'w') as file:  # 'w' mode to overwrite the file
+    for combination in all_states:
+        probability = 1        
+        prob_comb =[]
+        for node in combination:
+            if node in roots:
+                probability *= data[node][combination[node]]
+                prob_comb.append(node + " " + combination[node] + " : " + str(data[node][combination[node]]))        
+            else:
+                for parent in find_parents(node):
+                    probability *= data[node][combination[node]][parent + '.' + combination[parent]]
+                    prob_comb.append(node + " " + combination[node] + " "+ parent + '.' + combination[parent] +
+                                    " : " + str(data[node][combination[node]][parent + '.' + combination[parent]]))
+        #if (probability != 0):
+        probsum += probability
+        print(str(combination) + " Probability: " + str(probability))
+        file.write(str(combination) + " Probability: " + str(probability) + "\n")
         #print()
     #prob_comblist.append(combination + [probability])
 
         #print(combination, " ", probability)
 print("<<<<<<<<<<<<<<<< Full probabilities")
+        
 
 #print("Node: {}, State: {}, probability: {}".format(pn, s, nodes_prob[pn][s]))
 #print(all_states)
