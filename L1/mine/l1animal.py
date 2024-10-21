@@ -1,4 +1,4 @@
-netwrok = "Animal"
+netwrok = "animal"
 
 topology = [('Animal', 'Environment'), 
                    ('Animal', 'HasShell'),

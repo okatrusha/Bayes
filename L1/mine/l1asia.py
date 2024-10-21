@@ -1,15 +1,14 @@
-netwrok = "Asia"
+netwrok = "asia"
 
 topology = [('VisitAsia', 'Tuberculosis'), 
-                   ('Tuberculosis', 'Tb_or_Ca'),
-                   ('Animal', 'Class'),
-                   ('Smoking', 'LungCancer'),
-                   ('LungCancer', 'Tb_or_Ca'),
-                   ('Tb_or_Ca', 'XRay'),
-                   ('Tb_or_Ca', 'Dyspnea'),
-                   ('Bronchitis', 'Dyspnea'),
-                   ('Smoking', 'Bronchitis')
-                   ]
+            ('Tuberculosis', 'Tb_or_Ca'),
+            ('Tb_or_Ca', 'XRay'),
+            ('Tb_or_Ca', 'Dyspnea'),            
+            ('Smoking', 'LungCancer'),
+            ('Smoking', 'Bronchitis'),
+            ('LungCancer', 'Tb_or_Ca'),
+            ('Bronchitis', 'Dyspnea'),
+            ]
 
 data = {
     "VisitAsia": {
@@ -21,57 +20,73 @@ data = {
         "NoSmoking": 0.5
     },
     "Tuberculosis": {
-        "VisitAsia": {
-            "Visit": {"Present": 0.05, "Absent": 0.95},
-            "NoVisit": {"Present": 0.01, "Absent": 0.99}
+        "Present": {
+            "VisitAsia.Visit": 0.05,
+            "VisitAsia.NoVisit": 0.01
+        },
+        "Absent": {
+            "VisitAsia.Visit": 0.95,
+            "VisitAsia.NoVisit": 0.99
         }
     },
     "LungCancer": {
-        "Smoking": {
-            "Smoking": {"Present": 0.1, "Absent": 0.9},
-            "NoSmoking": {"Present": 0.01, "Absent": 0.99}
+        "Present": {
+            "Smoking.Smoking": 0.1,
+            "Smoking.NoSmoking": 0.01
+        },
+        "Absent": {
+            "Smoking.Smoking": 0.9,
+            "Smoking.NoSmoking": 0.99
         }
     },
     "Tb_or_Ca": {
-        "Tuberculosis": {
-            "Present": {
-                "Lung Cancer": {"Present": {"True": 1, "False": 0},
-                                "Absent": {"True": 1, "False": 0}
-                },
+        "True": {
+            "Tuberculosis.Present,LungCancer.Present": 1,
+            "Tuberculosis.Present,LungCancer.Absent": 1,
+            "Tuberculosis.Absent,LungCancer.Present": 1,
+            "Tuberculosis.Absent,LungCancer.Absent": 0
             },
-            "Absent": {
-                "Lung Cancer": {"Present": {"True": 1, "False": 0},
-                                "Absent": {"True": 0, "False": 1}
-                }
+        "False": {
+            "Tuberculosis.Present,LungCancer.Present": 0,
+            "Tuberculosis.Present,LungCancer.Absent": 0,
+            "Tuberculosis.Absent,LungCancer.Present": 0,
+            "Tuberculosis.Absent,LungCancer.Absent": 1
             }
-        }
     },
+
     "XRay": {
-        "Tb_or_Ca": {
-            "True": {"Abnormal": 0.98, "Normal": 0.02},
-            "False": {"Abnormal": 0.05, "Normal": 0.95}
+        "Abnormal": {
+            "Tb_or_Ca.True": 0.98,
+            "Tb_or_Ca.False": 0.05
+        },
+        "Normal": {
+            "Tb_or_Ca.True": 0.02,
+            "Tb_or_Ca.False": 0.95
         }
     },
     "Bronchitis": {
-        "Smoking": {
-            "Smoking": {"Present": 0.6, "Absent": 0.4},
-            "NoSmoking": {"Present": 0.3, "Absent": 0.7}
+        "Present": {
+            "Smoking.Smoking": 0.6,
+            "Smoking.NoSmoking": 0.3
+        },
+        "Absent": {
+            "Smoking.Smoking": 0.4,
+            "Smoking.NoSmoking": 0.7
         }
     },
     "Dyspnea": {
-        "Tb_or_Ca": {
-            "True": {
-                "Bronchitis": {
-                    "Present": {"True": 0.9, "False": 0.1},
-                    "Absent": {"True": 0.7, "False": 0.3}
-                }
+        "True": {
+            "Tb_or_Ca.True,Bronchitis.Present": 0.9,
+            "Tb_or_Ca.True,Bronchitis.Absent": 0.7,
+            "Tb_or_Ca.False,Bronchitis.Present": 0.8,
+            "Tb_or_Ca.False,Bronchitis.Absent": 0.1
             },
-            "False": {
-                "Bronchitis": {
-                    "Present": {"True": 0.8, "False": 0.2},
-                    "Absent": {"True": 0.1, "False": 0.9}
-                }
+        "False": {
+            "Tb_or_Ca.True,Bronchitis.Present": 0.1,
+            "Tb_or_Ca.True,Bronchitis.Absent": 0.3,
+            "Tb_or_Ca.False,Bronchitis.Present": 0.2,
+            "Tb_or_Ca.False,Bronchitis.Absent": 0.9
             }
-        }
     }
 }
+
