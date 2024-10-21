@@ -1,15 +1,14 @@
 netwrok = "asia"
 
 topology = [('VisitAsia', 'Tuberculosis'), 
-                   ('Tuberculosis', 'Tb_or_Ca'),
-                   ('Animal', 'Class'),
-                   ('Smoking', 'LungCancer'),
-                   ('LungCancer', 'Tb_or_Ca'),
-                   ('Tb_or_Ca', 'XRay'),
-                   ('Tb_or_Ca', 'Dyspnea'),
-                   ('Bronchitis', 'Dyspnea'),
-                   ('Smoking', 'Bronchitis')
-                   ]
+            ('Tuberculosis', 'Tb_or_Ca'),
+            ('Tb_or_Ca', 'XRay'),
+            ('Tb_or_Ca', 'Dyspnea'),            
+            ('Smoking', 'LungCancer'),
+            ('Smoking', 'Bronchitis'),
+            ('LungCancer', 'Tb_or_Ca'),
+            ('Bronchitis', 'Dyspnea'),
+            ]
 
 data = {
     "VisitAsia": {
@@ -43,13 +42,13 @@ data = {
     "Tb_or_Ca": {
         "True": {
             "Tuberculosis.Present,LungCancer.Present": 1,
-            "Tuberculosis.Present,LungCancer.Present": 1,
+            "Tuberculosis.Present,LungCancer.Absent": 1,
             "Tuberculosis.Absent,LungCancer.Present": 1,
             "Tuberculosis.Absent,LungCancer.Absent": 0
             },
         "False": {
             "Tuberculosis.Present,LungCancer.Present": 0,
-            "Tuberculosis.Present,LungCancer.Present": 0,
+            "Tuberculosis.Present,LungCancer.Absent": 0,
             "Tuberculosis.Absent,LungCancer.Present": 0,
             "Tuberculosis.Absent,LungCancer.Absent": 1
             }

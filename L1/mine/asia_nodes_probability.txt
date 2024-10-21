@@ -1,0 +1,16 @@
+Node: Smoking, State: Smoking, probability: 0.5
+Node: Smoking, State: NoSmoking, probability: 0.5
+Node: VisitAsia, State: Visit, probability: 0.01
+Node: VisitAsia, State: NoVisit, probability: 0.99
+Node: LungCancer, State: Present, probability: 0.055
+Node: LungCancer, State: Absent, probability: 0.9450000000000001
+Node: Bronchitis, State: Present, probability: 0.44999999999999996
+Node: Bronchitis, State: Absent, probability: 0.55
+Node: Tuberculosis, State: Present, probability: 0.010400000000000001
+Node: Tuberculosis, State: Absent, probability: 0.9895999999999999
+Node: Tb_or_Ca, State: True, probability: 0.064828
+Node: Tb_or_Ca, State: False, probability: 0.935172
+Node: XRay, State: Abnormal, probability: 0.11029004
+Node: XRay, State: Normal, probability: 0.8897099599999999
+Node: Dyspnea, State: True, probability: 0.4393105
+Node: Dyspnea, State: False, probability: 0.5606895000000001
