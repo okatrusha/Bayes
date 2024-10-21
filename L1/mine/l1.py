@@ -1,7 +1,7 @@
 import json
 import itertools
-from l1animal import topology, data 
-#from l1asia import topology, data 
+#from l1animal import topology, data, netwrok     
+from l1asia import topology, data, netwrok     
 
 parents = {root for root, child in topology}
 children = {child for root, child in topology}
@@ -36,15 +36,15 @@ for r in roots:
 #     for s in parsed_nodes[pn]:
 #         print("Node: {}, State: {}, probability: {}".format(pn, s, parsed_nodes[pn][s]))
 # print("<<<<<<<<<<<<<<< Nodes probabilities")
+print("NETWORK: " + netwrok + "\n")
 
 print("Nodes probabilities >>>>>>>>>>>>>>>")
 for pn in nodes_prob:
     for s in nodes_prob[pn]:
         print("Node: {}, State: {}, probability: {}".format(pn, s, nodes_prob[pn][s]))
-print("<<<<<<<<<<<<<<< Nodes probabilities")
-print("")
+print("<<<<<<<<<<<<<<< Nodes probabilities\n")
 
-with open("L1/mine/animal_nodes_probability.txt", 'w') as file:  # 'w' mode to overwrite the file
+with open("L1/mine/" + netwrok + "_nodes_probability.txt", 'w') as file:  # 'w' mode to overwrite the file
     for pn in nodes_prob:
         for s in nodes_prob[pn]:
             file.write("Node: {}, State: {}, probability: {}".format(pn, s, nodes_prob[pn][s]) + "\n")
@@ -72,7 +72,7 @@ print("Full probabilities >>>>>>>>>>>>>>>")
 
 probsum = 0
 prob_comblist = []
-with open("L1/mine/animal_full_probability.txt", 'w') as file:  # 'w' mode to overwrite the file
+with open("L1/mine/" + netwrok + "_full_probability.txt", 'w') as file:  # 'w' mode to overwrite the file
     for combination in all_states:
         probability = 1        
         prob_comb =[]
@@ -87,7 +87,8 @@ with open("L1/mine/animal_full_probability.txt", 'w') as file:  # 'w' mode to ov
                                     " : " + str(data[node][combination[node]][parent + '.' + combination[parent]]))
         #if (probability != 0):
         probsum += probability
-        print(str(combination) + " Probability: " + str(probability))
+        if (probability != 0):
+            print(str(combination) + " Probability: " + str(probability))
         file.write(str(combination) + " Probability: " + str(probability) + "\n")
         #print()
     #prob_comblist.append(combination + [probability])
